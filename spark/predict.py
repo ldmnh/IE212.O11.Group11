@@ -40,13 +40,17 @@ def calc_predict_acc (spark_session, data_input_path, **kwargs):
 
     # Hiển thị kết quả
     print('-----------------------------------------')
-    print('DỰ ĐOÁN DỰ TRÊN ACCURACY')
+    print('DỰ ĐOÁN DỰA TRÊN ACCURACY')
     print(f'Số lượng hàng giống nhau: {count_matching_rows}')
     print(f'Tổng số hàng: {total_rows}')
     print(f'Phần trăm giống nhau: {percentage_matching}%')
     print('-----------------------------------------')
 
-    return percentage_matching, model_predict_path
+    # Push predict_acc_result to xcom
+    ti.xcom_push(key='predict_acc_result', value={
+        'percentage_matching':percentage_matching,
+        'model_path':model_predict_path,
+    })
 
 # Dự đoán bằng model SVM    
 # predictions = predict_model_words('./data/preprocessed.csv', './model/SVM_words', spark)

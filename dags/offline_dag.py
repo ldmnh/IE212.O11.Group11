@@ -11,6 +11,8 @@ from spark.preprocess import preprocess
 from spark.train_models import W2V, SVM, RandomForest, LR, GradientBoosted, DecisionTrees
 from spark.predict import calc_predict_acc
 
+from dags.utils import save_best_model
+
 default_args = {
 	'owner':'group11',
 	'start_date':datetime(2024, 1, 17, 10, 0),
@@ -36,6 +38,7 @@ with DAG(
 	default_args=default_args,
 	schedule_interval='@daily'
 ) as dag:
+	# Prepocess data
 	preprocessing=PythonOperator(
 		task_id='preprocess',
 		python_callable=preprocess,
@@ -47,7 +50,7 @@ with DAG(
 		}
 	)
 
-	# W2V model
+	# Train W2V model
 	training_w2v=PythonOperator(
 		task_id='train_model_W2V',
 		python_callable=W2V,
@@ -58,7 +61,7 @@ with DAG(
 		}
 	)
 
-	# SVM model
+	# Train SVM model
 	training_svm=PythonOperator(
 		task_id='train_model_SVM',
 		python_callable=SVM,
@@ -71,6 +74,7 @@ with DAG(
 		provide_context=True,
 	)
 
+	# Predict Acc of SVM model
 	predicting_svm=PythonOperator(
 		task_id='predict_model_svm',
 		python_callable=calc_predict_acc,
@@ -81,7 +85,7 @@ with DAG(
 		provide_context=True,
 	)
 
-	# RandomForest model
+	# Train RandomForest model
 	training_rf=PythonOperator(
 		task_id='train_model_RandomForest',
 		python_callable=RandomForest,
@@ -94,6 +98,7 @@ with DAG(
 		provide_context=True,
 	)
 
+	# Predict Acc of RandomForest model
 	predicting_rf=PythonOperator(
 		task_id='predict_model_RandomForest',
 		python_callable=calc_predict_acc,
@@ -104,7 +109,7 @@ with DAG(
 		provide_context=True,
 	)
 
-	# LogisticRegression model
+	# Train LogisticRegression model
 	training_lr=PythonOperator(
 		task_id='train_model_LogisticRegression',
 		python_callable=LR,
@@ -117,6 +122,7 @@ with DAG(
 		provide_context=True,
 	)
 
+	# Predict Acc of LogisticRegression model
 	predicting_lr=PythonOperator(
 		task_id='predict_model_LogisticRegression',
 		python_callable=calc_predict_acc,
@@ -127,7 +133,7 @@ with DAG(
 		provide_context=True,
 	)
 	
-	# GradientBoosted model
+	# Train GradientBoosted model
 	training_gb=PythonOperator(
 		task_id='train_model_GradientBoosted',
 		python_callable=GradientBoosted,
@@ -140,6 +146,7 @@ with DAG(
 		provide_context=True,
 	)
 
+	# Predict Acc of GradientBoosted model
 	predicting_gb=PythonOperator(
 		task_id='predict_model_GradientBoosted',
 		python_callable=calc_predict_acc,
@@ -150,7 +157,7 @@ with DAG(
 		provide_context=True,
 	)
 	
-	# DecisionTrees model
+	# Train DecisionTrees model
 	training_dt=PythonOperator(
 		task_id='train_model_DecisionTrees',
 		python_callable=DecisionTrees,
@@ -163,6 +170,7 @@ with DAG(
 		provide_context=True,
 	)
 
+	# Predict Acc of DecisionTrees model
 	predicting_dt=PythonOperator(
 		task_id='predict_model_DecisionTrees',
 		python_callable=calc_predict_acc,
@@ -173,9 +181,18 @@ with DAG(
 		provide_context=True,
 	)
 
+	# Save best Acc model
+	save_model=PythonOperator(
+		task_id='save_best_model',
+		python_callable=save_best_model,
+		provide_context=True,
+	)
+
+	# Main flow
 	preprocessing >> training_w2v \
 	>> training_svm >> predicting_svm  \
 	>> training_rf >> predicting_rf \
 	>> training_lr >> predicting_lr \
 	>> training_gb >> predicting_gb \
-	>> training_dt >> predicting_dt
+	>> training_dt >> predicting_dt \
+	>> save_model
