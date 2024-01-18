@@ -32,7 +32,7 @@ def W2V(spark_session, data_input_path, model_output_path):
 # Input: Đường dẫn của file dữ liệu .csv để training cho model SVM, đường dẫn xuất và lưu của model SVM, một sparksession đã được tạo
 # Output: Lưu ra thành một model đã được huấn luyện bên trong đường dẫn
 # Điều kiện để chạy: Dữ liệu đưa vào phải qua bước Preprocessing thì mới chạy được, đã có model W2V sẵn
-def SVM(spark_session, data_input_path, model_w2v_path, model_output_path):
+def SVM(spark_session, data_input_path, model_w2v_path, model_output_path, **kwargs):
     # Đọc các dữ liệu từ đường dẫn sang dataframe
     df = read_csv (spark_session, data_input_path)
 
@@ -45,7 +45,7 @@ def SVM(spark_session, data_input_path, model_w2v_path, model_output_path):
 
     # TRAINING MODEL SVM
     # Tạo một mô hình SVM
-    svm = LinearSVC(featuresCol="wordEmbeddings", labelCol="label", predictionCol='label_pred')
+    svm = LinearSVC(featuresCol='wordEmbeddings', labelCol='label', predictionCol='label_pred')
 
     # Tạo pipeline với mô hình SVM
     pipeline_svm_words = Pipeline(stages=[w2v_model, svm])
@@ -57,11 +57,15 @@ def SVM(spark_session, data_input_path, model_w2v_path, model_output_path):
     SVM_words_model_path = model_output_path
     model_svm_words.write().overwrite().save(SVM_words_model_path)
 
+    # Push model_output_path to xcom
+    ti = kwargs['ti']
+    ti.xcom_push(key='model_output_path', value=model_output_path)
+
 # Training model RandomForest với cột 'words' để sử dụng trong quá trình dự đoán
 # Input: Đường dẫn của file dữ liệu .csv để training cho model RandomForest, đường dẫn xuất và lưu của model RandomForest, một sparksession đã được tạo
 # Output: Lưu ra thành một model đã được huấn luyện bên trong đường dẫn
 # Điều kiện để chạy: Dữ liệu đưa vào phải qua bước Preprocessing thì mới chạy được, đã có model W2V sẵn
-def RandomForest(spark_session, data_input_path, model_w2v_path, model_output_path):
+def RandomForest(spark_session, data_input_path, model_w2v_path, model_output_path, **kwargs):
     # Đọc các dữ liệu từ đường dẫn sang dataframe
     df = read_csv (spark_session, data_input_path)
 
@@ -74,7 +78,7 @@ def RandomForest(spark_session, data_input_path, model_w2v_path, model_output_pa
 
     # TRAINING MODEL RandomForest
     # Tạo một mô hình RandomForest
-    rf = RandomForestClassifier(featuresCol="wordEmbeddings", labelCol="label", predictionCol='label_pred')
+    rf = RandomForestClassifier(featuresCol='wordEmbeddings', labelCol='label', predictionCol='label_pred')
 
     # Tạo pipeline với mô hình RandomForest
     pipeline_rf_words = Pipeline(stages=[w2v_model, rf])
@@ -86,11 +90,15 @@ def RandomForest(spark_session, data_input_path, model_w2v_path, model_output_pa
     RandomForest_words_model_path = model_output_path
     model_rf_words.write().overwrite().save(RandomForest_words_model_path)
 
+    # Push model_output_path to xcom
+    ti = kwargs['ti']
+    ti.xcom_push(key='model_output_path', value=model_output_path)
+
 # Training model LogisticRegression với cột 'words' để sử dụng trong quá trình dự đoán
 # Input: Đường dẫn của file dữ liệu .csv để training cho model LogisticRegression, đường dẫn xuất và lưu của model LogisticRegression, một sparksession đã được tạo
 # Output: Lưu ra thành một model đã được huấn luyện bên trong đường dẫn
 # Điều kiện để chạy: Dữ liệu đưa vào phải qua bước Preprocessing thì mới chạy được, đã có model W2V sẵn
-def LR(spark_session, data_input_path, model_w2v_path, model_output_path):
+def LR(spark_session, data_input_path, model_w2v_path, model_output_path, **kwargs):
     # Đọc các dữ liệu từ đường dẫn sang dataframe
     df = read_csv (spark_session, data_input_path)
 
@@ -103,7 +111,7 @@ def LR(spark_session, data_input_path, model_w2v_path, model_output_path):
 
     # TRAINING MODEL LogisticRegression
     # Tạo một mô hình LogisticRegression
-    lr = LogisticRegression(featuresCol="wordEmbeddings", labelCol="label", predictionCol='label_pred')
+    lr = LogisticRegression(featuresCol='wordEmbeddings', labelCol='label', predictionCol='label_pred')
 
     # Tạo pipeline với mô hình LogisticRegression
     pipeline_lr_words = Pipeline(stages=[w2v_model, lr])
@@ -115,11 +123,15 @@ def LR(spark_session, data_input_path, model_w2v_path, model_output_path):
     LogisticRegression_words_model_path = model_output_path
     model_lr_words.write().overwrite().save(LogisticRegression_words_model_path)
 
+    # Push model_output_path to xcom
+    ti = kwargs['ti']
+    ti.xcom_push(key='model_output_path', value=model_output_path)
+
 # Training model GradientBoosted với cột 'words' để sử dụng trong quá trình dự đoán
 # Input: Đường dẫn của file dữ liệu .csv để training cho model GradientBoosted, đường dẫn xuất và lưu của model GradientBoosted, một sparksession đã được tạo
 # Output: Lưu ra thành một model đã được huấn luyện bên trong đường dẫn
 # Điều kiện để chạy: Dữ liệu đưa vào phải qua bước Preprocessing thì mới chạy được, đã có model W2V sẵn
-def GradientBoosted(spark_session, data_input_path, model_w2v_path, model_output_path):
+def GradientBoosted(spark_session, data_input_path, model_w2v_path, model_output_path, **kwargs):
     # Đọc các dữ liệu từ đường dẫn sang dataframe
     df = read_csv (spark_session, data_input_path)
 
@@ -132,7 +144,7 @@ def GradientBoosted(spark_session, data_input_path, model_w2v_path, model_output
 
     # TRAINING MODEL GradientBoosted
     # Tạo một mô hình GradientBoosted
-    gbt = GBTClassifier(featuresCol="wordEmbeddings", labelCol="label", predictionCol='label_pred')
+    gbt = GBTClassifier(featuresCol='wordEmbeddings', labelCol='label', predictionCol='label_pred')
 
     # Tạo pipeline với mô hình GradientBoosted
     pipeline_gbt_words = Pipeline(stages=[w2v_model, gbt])
@@ -144,11 +156,15 @@ def GradientBoosted(spark_session, data_input_path, model_w2v_path, model_output
     GradientBoosted_words_model_path = model_output_path
     model_gbt_words.write().overwrite().save(GradientBoosted_words_model_path)
 
+    # Push model_output_path to xcom
+    ti = kwargs['ti']
+    ti.xcom_push(key='model_output_path', value=model_output_path)
+
 # Training model DecisionTrees với cột 'words' để sử dụng trong quá trình dự đoán
 # Input: Đường dẫn của file dữ liệu .csv để training cho model DecisionTrees, đường dẫn xuất và lưu của model DecisionTrees, một sparksession đã được tạo
 # Output: Lưu ra thành một model đã được huấn luyện bên trong đường dẫn
 # Điều kiện để chạy: Dữ liệu đưa vào phải qua bước Preprocessing thì mới chạy được, đã có model W2V sẵn
-def DecisionTrees(spark_session, data_input_path, model_w2v_path, model_output_path):
+def DecisionTrees(spark_session, data_input_path, model_w2v_path, model_output_path, **kwargs):
     
     # Đọc các dữ liệu từ đường dẫn sang dataframe
     df = read_csv (spark_session, data_input_path)
@@ -162,7 +178,7 @@ def DecisionTrees(spark_session, data_input_path, model_w2v_path, model_output_p
 
     # TRAINING MODEL DecisionTrees
     # Tạo một mô hình DecisionTrees
-    dt = DecisionTreeClassifier(featuresCol="wordEmbeddings", labelCol="label", predictionCol="label_pred")
+    dt = DecisionTreeClassifier(featuresCol='wordEmbeddings', labelCol='label', predictionCol='label_pred')
 
     # Tạo pipeline với mô hình DecisionTrees
     pipeline_dt_words = Pipeline(stages=[w2v_model, dt])
@@ -173,3 +189,7 @@ def DecisionTrees(spark_session, data_input_path, model_w2v_path, model_output_p
     # Lưu model vào đường dẫn ./model/DecisionTrees_word
     DecisionTrees_words_model_path = model_output_path
     model_dt_words.write().overwrite().save(DecisionTrees_words_model_path)
+
+    # Push model_output_path to xcom
+    ti = kwargs['ti']
+    ti.xcom_push(key='model_output_path', value=model_output_path)

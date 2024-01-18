@@ -19,7 +19,8 @@ def stop_spark_session (spark_session):
         spark_session.stop()
 
 def tokenize (data_input_df):
-    # Cấu tạo biến tokenizer có chức năng tách đoạn văn bản trong cột 'text' thành các từ riêng và lưu vào cột 'words'. VD: 'Tôi là AI' -> 'Tôi', 'là', 'AI'
+    # Cấu tạo biến tokenizer có chức năng tách đoạn văn bản trong cột 'text' thành các từ riêng và lưu vào cột 'words'.
+    # VD: 'Tôi là AI' -> 'Tôi', 'là', 'AI'
     tokenizer = RegexTokenizer(inputCol='words_str', outputCol='words', pattern='\\W')
 
     # Cấu tạo biến pineline như thứ tự hoạt động các chức năng
@@ -36,25 +37,6 @@ def load_model_W2V (w2v_model_path):
     w2v_model = Word2VecModel.load(model_w2v_path)
 
     return w2v_model
-
-def export_result_Acc (predictions):
-    # Tổng số hàng
-    total_rows = predictions.count()
-
-    # Đối chiếu và đếm số lượng giá trị giống nhau
-    matching_rows = predictions.filter(col('label') == col('label_pred'))
-    count_matching_rows = matching_rows.count()
-
-    # Tính phần trăm giống nhau
-    percentage_matching = (count_matching_rows/ total_rows) * 100
-
-    # Hiển thị kết quả
-    print('-----------------------------------------')
-    print('DỰ ĐOÁN DỰ TRÊN ACCURACY')
-    print(f'Số lượng hàng giống nhau: {count_matching_rows}')
-    print(f'Tổng số hàng: {total_rows}')
-    print(f'Phần trăm giống nhau: {percentage_matching}%')
-    print('-----------------------------------------')
 
 def export_result_F1 (predictions):
     # Tính F1 score

@@ -1,7 +1,7 @@
-# PREPROCESSING: Thực hiện các phép biến đổi trên cột 'text'
 from spark.utils import *
 from spark.libs import *
 
+# PREPROCESSING: Thực hiện các phép biến đổi trên cột 'text'
 # Input: Đường dẫn của file dữ liệu .csv cần tiền xử lý, Đường dẫn của file dữ liệu .csv đã tiền xử lý, một sparksession đã được tạo, dữ liệu chuẩn để tiền xử lý học theo
 # Output: Lưu ra thành một file dữ liệu .csv bên trong đường dẫn
 # Điều kiện để chạy: Dữ liệu đưa vào phải có cột text, cột label
