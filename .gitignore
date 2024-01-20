@@ -1,7 +1,10 @@
 __pycache__/
-data/
-logs/
-models/
-
 airflow-webserver.pid
 airflow.db
+airflow.cfg
+webserver_config.py
+
+data/predicted-result
+data/train-preprocessed
+data/test-preprocessed
+logs/
