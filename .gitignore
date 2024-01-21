@@ -4,6 +4,7 @@ airflow.db
 airflow.cfg
 webserver_config.py
 
+checkpoints/
 data/predicted-result
 data/train-preprocessed
 data/test-preprocessed

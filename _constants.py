@@ -29,4 +29,4 @@ SPARK_OFFLINE_APP_NAME = 'Offline System - Training & Choose Best Model'
 SPARK_ONLINE_APP_NAME = 'Online System - Real-time Stress Prediction'
 
 PREDICT_RESULT_CSV_PATH = os.path.expanduser('~/code/IE212.O11.Group11/data/predicted-result')
-PREDICT_RESULT_CSV_CHECKPOINT_PATH = os.path.expanduser('~/code/IE212.O11.Group11/data/predicted-result/checkpoint')
+PREDICT_RESULT_CSV_CHECKPOINT_PATH = os.path.expanduser('~/code/IE212.O11.Group11/checkpoints/predicted-result')

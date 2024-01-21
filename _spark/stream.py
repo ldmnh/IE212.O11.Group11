@@ -49,20 +49,22 @@ def structured_stream():
     # Choose best model
     folder_path = os.path.expanduser(f'~/code/IE212.O11.Group11/models')
     folders = os.listdir(folder_path)
-    best_model_folders = [folder for folder in folders if folder.startswith("Best_model_")]
+    best_model_folders = [folder for folder in folders if folder.startswith('Best_model_')]
     best_model_path = os.path.join(folder_path, best_model_folders[0])
     
     # Predict
     predicted_df = predict_stream(preprocessed_df, best_model_path)
 
+    # Transfer to json
+    kafka_df = predicted_df.selectExpr('to_json(struct(*)) as value')
+
     # Write predicted to csv
-    predicted_df.writeStream \
-            .format('csv') \
-            .trigger(processingTime='20 seconds') \
-            .option('header', 'true') \
-            .option('path', PREDICT_RESULT_CSV_PATH) \
-            .option('checkpointLocation', PREDICT_RESULT_CSV_CHECKPOINT_PATH) \
-            .option('format', 'append') \
+    kafka_df.writeStream \
+            .format('kafka') \
             .outputMode('append') \
+            .option('kafka.bootstrap.servers', 'localhost:9092') \
+            .option('topic', 'predicted-result') \
+            .option('checkpointLocation', PREDICT_RESULT_CSV_CHECKPOINT_PATH) \
+            .trigger(processingTime='20 seconds') \
             .start() \
             .awaitTermination()
