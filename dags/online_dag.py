@@ -8,11 +8,11 @@ from airflow.operators.python import PythonOperator
 from datetime import datetime, timedelta
 
 # Import custom modules
-from _kafka.produce import produce_csv
+from _kafka.produce import produce_praw
 from _spark.stream import structured_stream
 
 default_args = {
-	'owner': 'group11',
+	'owner': 'Group11',
 	'start_date': datetime(2024, 1, 17, 10, 0),
 	'retries': 5,
     'retry_delay': timedelta(minutes=10),
@@ -23,14 +23,17 @@ with DAG(
 	default_args=default_args,
 	schedule_interval='@daily'
 ) as dag:
-    producing=PythonOperator(
-        task_id='produce_data',
-        python_callable=produce_csv,
+    # Crawl data from reddit using praw api
+    crawling=PythonOperator(
+        task_id='crawl_data',
+        python_callable=produce_praw,
     )
 
+    # Stream and execute data using spark structured streaming
     streaming=PythonOperator(
         task_id='stream_data',
         python_callable=structured_stream,
     )
     
-    [producing, streaming]
+    # Main flow
+    [crawling, streaming]

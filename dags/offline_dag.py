@@ -15,7 +15,7 @@ from _airflow.utils import save_best_model, clear_xcoms
 from _constants import *
 
 default_args = {
-	'owner':'group11',
+	'owner':'Group11',
 	'start_date':datetime(2024, 1, 17, 10, 0),
 	'retries': 5,
     'retry_delay': timedelta(minutes=10),

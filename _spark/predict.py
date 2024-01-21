@@ -39,7 +39,7 @@ def predict_stream(data_input, model_predict_path):
     # Dự đoán trên dữ liệu kiểm thử và tạo cột 'label_pred'
     predictions = predict_model.transform(test_data)
 
-    result = predictions.select('id', 'subreddit', 'post_id', 'sentence_range', 'text', 'social_timestamp', 'label_pred')
+    result = predictions.select( 'label_pred', 'subreddit', 'post_id', 'text', 'social_timestamp')
     
     return result
 

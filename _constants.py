@@ -14,10 +14,12 @@ GRADIENT_BOOSTED_MODEL_PATH = os.path.expanduser('~/code/IE212.O11.Group11/model
 DECISION_TREES_MODEL_PATH = os.path.expanduser('~/code/IE212.O11.Group11/models/DecisionTrees')
 
 BOOTSTRAP_SERVERS = 'localhost:9092'
-KAFKA_TEST_TOPIC = 'test-set'
 SCALA_VERSION = '2.12'
 SPARK_VERSION = '3.5.0'
 KAFKA_VERSION = '3.6.0'
+KAFKA_TEST_TOPIC = 'test-set'
+KAFKA_CRAWL_TOPIC = 'crawl-set'
+KAFKA_DETECTED_TOPIC = 'detected-result'
 
 SPARK_STREAM_PACKAGE = [
     f'org.apache.spark:spark-sql-kafka-0-10_{SCALA_VERSION}:{SPARK_VERSION}',
@@ -26,7 +28,29 @@ SPARK_STREAM_PACKAGE = [
 
 SPARK_MASTER_HOST = 'spark://127.0.0.1:1909'
 SPARK_OFFLINE_APP_NAME = 'Offline System - Training & Choose Best Model'
-SPARK_ONLINE_APP_NAME = 'Online System - Real-time Stress Prediction'
+SPARK_ONLINE_APP_NAME = 'Online System - Real-time Stress Detection'
 
-PREDICT_RESULT_CSV_PATH = os.path.expanduser('~/code/IE212.O11.Group11/data/predicted-result')
-PREDICT_RESULT_CSV_CHECKPOINT_PATH = os.path.expanduser('~/code/IE212.O11.Group11/checkpoints/predicted-result')
+DETECTED_RESULT_CSV_PATH = os.path.expanduser('~/code/IE212.O11.Group11/data/detected-result')
+DETECTED_RESULT_CSV_CHECKPOINT_PATH = os.path.expanduser('~/code/IE212.O11.Group11/checkpoints/detected-result')
+
+SUBREDDITS = [
+    'domesticviolence',
+    # 'survivorsofabuse', # Private subreddit
+    'anxiety',
+    'stress',
+    'almosthomeless',
+    'assistance',
+    'food_pantry',
+    'homeless',
+    'ptsd',
+    'relationships'
+]
+REDDIT_CLIENT_ID = 'hX1h3ot5OPjOtQKnCsjkjg'
+REDDIT_CLIENT_SECRET = '_SOXAIlqlrgLNmBWnB55zOXkuXQ_xA'
+REDDIT_USER_AGENT = 'Stress Detection Crawling by u/namtuthien'
+REDDIT_USER_NAME = 'namtuthien'
+REDDIT_PASSWORD = 'ducmanh123'
+
+CRAWL_LIMIT = 1
+CRAWL_TRIGGER_TIME = 2
+STREAM_TRIGGER_TIME = '1 seconds'

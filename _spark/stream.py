@@ -9,7 +9,7 @@ from _spark.predict import predict_stream
 from _spark.preprocess import preprocess_df
 
 def structured_stream():
-    # Spark Session
+    # Create spark session
     spark_session = SparkSession.builder \
         .master(SPARK_MASTER_HOST) \
         .appName(SPARK_ONLINE_APP_NAME) \
@@ -22,7 +22,7 @@ def structured_stream():
         spark_session.readStream \
             .format('kafka') \
             .option('kafka.bootstrap.servers', BOOTSTRAP_SERVERS) \
-            .option('subscribe', KAFKA_TEST_TOPIC) \
+            .option('subscribe', KAFKA_CRAWL_TOPIC) \
             .option('startingOffsets', 'earliest') \
             .load()
     )
@@ -30,17 +30,16 @@ def structured_stream():
     # Extract the JSON string from the Kafka message
     json_column = col('value').cast('string')
 
-    # Transfer dataframe use infer schema
+    # Transfer dataframe using infer schema
     infer_schema_df = (streaming_df.select(from_json(json_column, 'map<string, string>').alias('parsed_data')))
 
     # Select individual fields from the map
     streaming_df = infer_schema_df.selectExpr(
-        'parsed_data.id',
         'parsed_data.subreddit',
         'parsed_data.post_id',
-        'parsed_data.sentence_range',
         'parsed_data.text',
         'parsed_data.social_timestamp',
+        'parsed_data.url',
     )
 
     # Preprocess
@@ -60,11 +59,11 @@ def structured_stream():
 
     # Write predicted to csv
     kafka_df.writeStream \
-            .format('kafka') \
-            .outputMode('append') \
-            .option('kafka.bootstrap.servers', 'localhost:9092') \
-            .option('topic', 'predicted-result') \
-            .option('checkpointLocation', PREDICT_RESULT_CSV_CHECKPOINT_PATH) \
-            .trigger(processingTime='20 seconds') \
-            .start() \
-            .awaitTermination()
+        .format('kafka') \
+        .outputMode('append') \
+        .option('kafka.bootstrap.servers', BOOTSTRAP_SERVERS) \
+        .option('topic', KAFKA_DETECTED_TOPIC) \
+        .option('checkpointLocation', DETECTED_RESULT_CSV_CHECKPOINT_PATH) \
+        .trigger(processingTime=STREAM_TRIGGER_TIME) \
+        .start() \
+        .awaitTermination()
