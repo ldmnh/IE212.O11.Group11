@@ -39,10 +39,10 @@ def produce_praw():
 
     count = 0
     # Crawling
-    while count < 500:
+    while count < CRAWL_LIMIT:
         for sub in SUBREDDITS:
             subreddit = reddit.subreddit(sub)
-            posts = subreddit.random_rising(limit=CRAWL_LIMIT)
+            posts = subreddit.random_rising(limit=CRAWL_TRIGGER_LIMIT)
 
             print('Subreddit: r/', sub)
             print('-------------------------------------------')

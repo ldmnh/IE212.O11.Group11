@@ -6,7 +6,7 @@ from pyspark.ml import PipelineModel
 from _spark.utils import read_csv, tokenize
 
 # Dùng model sử dụng cột 'words' để dự đoán
-# Input: Đường dẫn của file dữ liệu .csv để dự đoán, đường dẫn của model dự đoán bằng cột 'words', một spark_session đã được tạo
+# Input: Đường dẫn của file dữ liệu .csv để dự đoán, đường dẫn của model dự đoán bằng cột 'words'
 # Output: Kết quả dự đoán của model
 # Điều kiện để chạy: Dữ liệu đưa vào phải qua bước Preprocessing thì mới chạy được, đã có model dự đoán bằng cột 'words' sẵn
 def predict_model_words(data_input_path, model_predict_path):
@@ -25,6 +25,10 @@ def predict_model_words(data_input_path, model_predict_path):
     
     return predictions
 
+# Dùng model sử dụng cột 'words' để dự đoán
+# Input: Dataframe, đường dẫn của model dự đoán bằng cột 'words'
+# Output: Kết quả dự đoán của model
+# Điều kiện để chạy: Dữ liệu đưa vào phải qua bước Preprocessing thì mới chạy được, đã có model dự đoán bằng cột 'words' sẵn
 def predict_stream(data_input, model_predict_path):
     # Đọc các dữ liệu từ đường dẫn sang dataframe
     test_data = data_input

@@ -40,7 +40,7 @@ SUBREDDITS = [
     'stress',
     'almosthomeless',
     'assistance',
-    'food_pantry',
+    # 'food_pantry', # Deleted subreddit
     'homeless',
     'ptsd',
     'relationships'
@@ -51,6 +51,7 @@ REDDIT_USER_AGENT = 'Stress Detection Crawling by u/namtuthien'
 REDDIT_USER_NAME = 'namtuthien'
 REDDIT_PASSWORD = 'ducmanh123'
 
-CRAWL_LIMIT = 1
+CRAWL_LIMIT = 200
+CRAWL_TRIGGER_LIMIT = 1
 CRAWL_TRIGGER_TIME = 2
 STREAM_TRIGGER_TIME = '1 seconds'

@@ -1,3 +1,4 @@
+# Import libs
 import os, shutil
 from airflow import settings
 from airflow.models import XCom
@@ -9,14 +10,13 @@ def save_best_model(**kwargs):
     xcom_keys = ti.xcom_pull(
         key='predict_acc_result',
         task_ids=[
-            'predict_model_svm',
+            'predict_model_SVM',
             'predict_model_RandomForest',
             'predict_model_LogisticRegression',
             'predict_model_GradientBoosted',
             'predict_model_DecisionTrees',
             'predict_model_SVM'
-        ],
-        include_prior_dates=True)
+        ], include_prior_dates=True)
 
     try:
         max_acc = 0
@@ -35,7 +35,7 @@ def save_best_model(**kwargs):
         model_folder_path = os.path.expanduser(f'~/code/IE212.O11.Group11/models')
         for folder in os.listdir(os.path.dirname(model_folder_path)):
             if folder.startswith('Best_model_'):
-                shutil.rmtree(os.path.join(os.path.dirname(best_model_path), folder))
+                shutil.rmtree(os.path.join(os.path.dirname(model_folder_path), folder))
 
         # Create best model folder
         best_model_name = max_acc_model_path.split('/')[-1]

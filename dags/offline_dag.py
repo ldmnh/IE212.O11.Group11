@@ -8,11 +8,11 @@ from airflow.operators.python import PythonOperator
 from datetime import datetime, timedelta
 
 # Import custom modules
+from _constants import *
+from _airflow.utils import save_best_model, clear_xcoms
 from _spark.preprocess import preprocess_csv
 from _spark.train_models import W2V, SVM, RandomForest, LR, GradientBoosted, DecisionTrees
 from _spark.predict import calc_predict_acc
-from _airflow.utils import save_best_model, clear_xcoms
-from _constants import *
 
 default_args = {
 	'owner':'Group11',

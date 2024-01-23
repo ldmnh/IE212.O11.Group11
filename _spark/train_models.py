@@ -11,7 +11,7 @@ from pyspark.ml.classification import LinearSVC
 from _spark.utils import read_csv, tokenize, load_model_W2V
 
 # Training model Word2Vec để sử dụng trong quá trình dự đoán
-# Input: Đường dẫn của file dữ liệu .csv để training cho model W2V, đường dẫn xuất và lưu của model W2V, một sparksession đã được tạo
+# Input: Đường dẫn của file dữ liệu .csv để training cho model W2V, đường dẫn xuất và lưu của model W2V
 # Output: Lưu ra thành một model đã được huấn luyện bên trong đường dẫn
 # Điều kiện để chạy: Dữ liệu đưa vào phải qua bước Preprocessing thì mới chạy được
 def W2V(data_input_path, model_output_path):
@@ -37,7 +37,7 @@ def W2V(data_input_path, model_output_path):
     w2v_model.write().overwrite().save(w2v_model_path)
 
 # Training model SVM với cột 'words' để sử dụng trong quá trình dự đoán
-# Input: Đường dẫn của file dữ liệu .csv để training cho model SVM, đường dẫn xuất và lưu của model SVM, một sparksession đã được tạo
+# Input: Đường dẫn của file dữ liệu .csv để training cho model SVM, đường dẫn xuất và lưu của model SVM
 # Output: Lưu ra thành một model đã được huấn luyện bên trong đường dẫn
 # Điều kiện để chạy: Dữ liệu đưa vào phải qua bước Preprocessing thì mới chạy được, đã có model W2V sẵn
 def SVM(data_input_path, model_w2v_path, model_output_path, **kwargs):
@@ -70,7 +70,7 @@ def SVM(data_input_path, model_w2v_path, model_output_path, **kwargs):
     ti.xcom_push(key='model_output_path', value=model_output_path)
 
 # Training model RandomForest với cột 'words' để sử dụng trong quá trình dự đoán
-# Input: Đường dẫn của file dữ liệu .csv để training cho model RandomForest, đường dẫn xuất và lưu của model RandomForest, một sparksession đã được tạo
+# Input: Đường dẫn của file dữ liệu .csv để training cho model RandomForest, đường dẫn xuất và lưu của model RandomForest
 # Output: Lưu ra thành một model đã được huấn luyện bên trong đường dẫn
 # Điều kiện để chạy: Dữ liệu đưa vào phải qua bước Preprocessing thì mới chạy được, đã có model W2V sẵn
 def RandomForest(data_input_path, model_w2v_path, model_output_path, **kwargs):
@@ -103,7 +103,7 @@ def RandomForest(data_input_path, model_w2v_path, model_output_path, **kwargs):
     ti.xcom_push(key='model_output_path', value=model_output_path)
 
 # Training model LogisticRegression với cột 'words' để sử dụng trong quá trình dự đoán
-# Input: Đường dẫn của file dữ liệu .csv để training cho model LogisticRegression, đường dẫn xuất và lưu của model LogisticRegression, một sparksession đã được tạo
+# Input: Đường dẫn của file dữ liệu .csv để training cho model LogisticRegression, đường dẫn xuất và lưu của model LogisticRegression
 # Output: Lưu ra thành một model đã được huấn luyện bên trong đường dẫn
 # Điều kiện để chạy: Dữ liệu đưa vào phải qua bước Preprocessing thì mới chạy được, đã có model W2V sẵn
 def LR(data_input_path, model_w2v_path, model_output_path, **kwargs):
@@ -136,7 +136,7 @@ def LR(data_input_path, model_w2v_path, model_output_path, **kwargs):
     ti.xcom_push(key='model_output_path', value=model_output_path)
 
 # Training model GradientBoosted với cột 'words' để sử dụng trong quá trình dự đoán
-# Input: Đường dẫn của file dữ liệu .csv để training cho model GradientBoosted, đường dẫn xuất và lưu của model GradientBoosted, một sparksession đã được tạo
+# Input: Đường dẫn của file dữ liệu .csv để training cho model GradientBoosted, đường dẫn xuất và lưu của model GradientBoosted
 # Output: Lưu ra thành một model đã được huấn luyện bên trong đường dẫn
 # Điều kiện để chạy: Dữ liệu đưa vào phải qua bước Preprocessing thì mới chạy được, đã có model W2V sẵn
 def GradientBoosted(data_input_path, model_w2v_path, model_output_path, **kwargs):
@@ -160,7 +160,7 @@ def GradientBoosted(data_input_path, model_w2v_path, model_output_path, **kwargs
     # Huấn luyện pipeline trên dữ liệu huấn luyện
     model_gbt_words = pipeline_gbt_words.fit(df)
 
-    # Lưu model vào đường dẫn ./model/GradientBoosted_word
+    # Lưu model vào đường dẫn /models/GradientBoosted
     GradientBoosted_words_model_path = model_output_path
     model_gbt_words.write().overwrite().save(GradientBoosted_words_model_path)
 
@@ -169,7 +169,7 @@ def GradientBoosted(data_input_path, model_w2v_path, model_output_path, **kwargs
     ti.xcom_push(key='model_output_path', value=model_output_path)
 
 # Training model DecisionTrees với cột 'words' để sử dụng trong quá trình dự đoán
-# Input: Đường dẫn của file dữ liệu .csv để training cho model DecisionTrees, đường dẫn xuất và lưu của model DecisionTrees, một sparksession đã được tạo
+# Input: Đường dẫn của file dữ liệu .csv để training cho model DecisionTrees, đường dẫn xuất và lưu của model DecisionTrees
 # Output: Lưu ra thành một model đã được huấn luyện bên trong đường dẫn
 # Điều kiện để chạy: Dữ liệu đưa vào phải qua bước Preprocessing thì mới chạy được, đã có model W2V sẵn
 def DecisionTrees(data_input_path, model_w2v_path, model_output_path, **kwargs):

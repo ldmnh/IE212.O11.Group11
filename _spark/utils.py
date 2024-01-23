@@ -2,8 +2,8 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col
 from pyspark.ml import Pipeline
-from pyspark.ml.feature import RegexTokenizer
 from pyspark.ml.feature import Word2VecModel
+from pyspark.ml.feature import RegexTokenizer
 
 # Import custom modules
 from _constants import *

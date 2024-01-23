@@ -9,7 +9,7 @@ from pyspark.ml import Pipeline
 from _spark.utils import read_csv, write_csv
 
 # PREPROCESSING: Thực hiện các phép biến đổi trên cột 'text'
-# Input: Đường dẫn của file dữ liệu .csv cần tiền xử lý, Đường dẫn của file dữ liệu .csv đã tiền xử lý, một sparksession đã được tạo, dữ liệu chuẩn để tiền xử lý học theo
+# Input: Đường dẫn của file dữ liệu .csv cần tiền xử lý, Đường dẫn của file dữ liệu .csv đã tiền xử lý, dữ liệu chuẩn để tiền xử lý học theo
 # Output: Lưu ra thành một file dữ liệu .csv bên trong đường dẫn
 # Điều kiện để chạy: Dữ liệu đưa vào phải có cột text, cột label
 def preprocess_csv(data_input_path, df_fit_path, data_output_path):

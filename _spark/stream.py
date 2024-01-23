@@ -24,6 +24,7 @@ def structured_stream():
             .option('kafka.bootstrap.servers', BOOTSTRAP_SERVERS) \
             .option('subscribe', KAFKA_CRAWL_TOPIC) \
             .option('startingOffsets', 'earliest') \
+            .option('failOnDataLoss', 'false') \
             .load()
     )
 
