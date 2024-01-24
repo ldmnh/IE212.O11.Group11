@@ -1,16 +1,16 @@
 # [IE212.O11.Group11] - Real-time Stress Detection on Reddit Posts, using Kafka and Spark streaming
 
-* Trường Đại học Công nghệ Thông tin, Đại học Quốc gia Thành phố Hồ Chí Minh (ĐHQG-HCM)
-* Khoa: Khoa học và kỹ thuật thông tin (KTTT)
-* GVHD: TS. Đỗ Trọng Hợp
-* Nhóm sinh viên thực hiện: Nhóm 11
+* Trường Đại học Công nghệ Thông tin, Đại học Quốc gia Thành phố Hồ Chí Minh (ĐHQG-HCM).
+* Khoa: Khoa học và kỹ thuật thông tin (KTTT).
+* GVHD: TS. Đỗ Trọng Hợp.
+* Nhóm sinh viên thực hiện: Nhóm 11.
 
 ## Danh sách thành viên
 |STT | Họ tên | MSSV| Vai trò |
 |:---:|:-------------:|:-----:|:-----:|
-|1.  | Phan Nguyễn Hải Yến | 21521698 | 
-|2. 	| Lý Phi Lân		|	21520319 | 
-|3. 	| Lê Đức Mạnh		| 21521116 |
+|1.  | Phan Nguyễn Hải Yến | 21521698 | Trưởng nhóm |
+|2. 	| Lý Phi Lân		|	21520319 | Thành viên |
+|3. 	| Lê Đức Mạnh		| 21521116 | Thành viên |
 
 ##  Giới thiệu
 Với sự phát triển nhanh chóng của công nghệ thông tin, các trang mạng xã hội đã trở thành một phần không thể thiếu trong cuộc sống của nhiều người hiện nay. Theo báo cáo thống kê của Statista, tính đến tháng 10 năm 2023, có hơn 60% dân số thế giới sử dụng mạng xã hội [1]. Số lượng người sử dụng lớn kéo theo đó là số lượng bài viết khổng lồ được chia sẻ mỗi ngày, cùng với nhịp sống hiện đại có nhiều áp lực từ công việc, học tập, gia đình, xã hội… khiến tình trạng căng thẳng trở nên phổ biến và dễ dàng được quan sát hơn bao giờ hết.
@@ -86,7 +86,7 @@ $ airflow users create --username your-user-name --firstname your-first-name --l
 Xem thêm: https://medium.com/international-school-of-ai-data-science/local-executor-in-apache-airflow-f8ce6773f1da
 ### Bước 6. Cấu hình Apache Spark
 * Truy cập vào thư mục cài đặt Apache Spark, cấu hình (như hình) để có thể thực thi Spark Standalone.
-![image](https://github.com/namtuthien/IE212.O11.Group11/assets/96688782/c9d3f93c-b3a7-49a8-9548-48b708c91485)
+![spark-1](https://github.com/namtuthien/IE212.O11.Group11/assets/96688782/c9d3f93c-b3a7-49a8-9548-48b708c91485)
 Xem thêm: https://spark.apache.org/docs/latest/spark-standalone.html
 ### Bước 7. Cài đặt các thư viện cần thiết
 ```
@@ -100,7 +100,7 @@ $ sbin/start-master.sh
 $ sbin/start-worker.sh spark://127.0.0.1:1909
 ```
 * Truy cập vào localhost:8080 để xem giao diện Spark Master.
-![image](https://github.com/namtuthien/IE212.O11.Group11/assets/96688782/f56d225a-e00e-43a1-adb5-3075a58cf752)
+![spark-2](https://github.com/namtuthien/IE212.O11.Group11/assets/96688782/f56d225a-e00e-43a1-adb5-3075a58cf752)
 * Lệnh dừng Spark Master và các Spark Worker.
 ```
 $ cd spark
@@ -131,23 +131,13 @@ $ export AIRFLOW_HOME="$(pwd)"
 $ airflow scheduler
 ```
 * Truy cập vào localhost:8888 và đăng nhập để xem giao diện quản lý của Airflow.
-![image](https://github.com/namtuthien/IE212.O11.Group11/assets/96688782/746d92fc-4f6e-4f3a-8f2e-d25764dfa823)
-* Bấm vào nút "chạy" để thực thi offline_dag.
-![image](https://github.com/namtuthien/IE212.O11.Group11/assets/96688782/7371774b-71d0-4cf3-9352-607a1657d2f8)
-* Sau khi offline_dag thực thi thành công, tiếp tục "chạy online_dag". Đồng thời, khi online_dag đang thực thi, sử dụng terminal để mở ứng dụng visualize.
+![Airflow-2](https://github.com/namtuthien/IE212.O11.Group11/assets/96688782/746d92fc-4f6e-4f3a-8f2e-d25764dfa823)
+* Bấm vào nút "chạy" để thực thi offline_dag. Sau khi offline_dag thực thi thành công, tiếp tục "chạy" online_dag. Đồng thời, khi online_dag đang thực thi, sử dụng terminal để mở ứng dụng visualize.
 ```
 $ cd your/path/to/IE212.O11.Group11/visualize
 $ streamlit run crawled-data.py
 $ streamlit run detected-result.py
 ```
 * Truy cập vào localhost:8051 hoặc localhost:8052 để xem kết quả thực thi.
-![image](https://github.com/namtuthien/IE212.O11.Group11/assets/96688782/7de89b09-aaa1-4773-b80f-687d5f4abecc)
-![image](https://github.com/namtuthien/IE212.O11.Group11/assets/96688782/cdface1d-0e0c-4e91-a868-1cb0a760baeb)
-
-# Cảm ơn quý thầy/cô và các bạn đã quan tâm đến Nhóm 11.
-
-
-
-
-
-
+![visualize-1](https://github.com/namtuthien/IE212.O11.Group11/assets/96688782/7de89b09-aaa1-4773-b80f-687d5f4abecc)
+![visualize-2](https://github.com/namtuthien/IE212.O11.Group11/assets/96688782/cdface1d-0e0c-4e91-a868-1cb0a760baeb)
