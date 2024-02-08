@@ -21,7 +21,7 @@ Trong phạm vi đồ án môn học, nhóm tập trung vào việc xây dựng 
 Nhóm chia kiến trúc hệ thống thành 2 thành phần chính.
 * Thành phần ngoại tuyến (Offline): Được nhóm xây dựng và phát triển để huấn luyện và kiểm tra các mô hình, nhằm tìm ra mô hình tối ưu nhất áp dụng trong pipeline phát hiện căng thẳng trực tuyến theo thời gian thực. Nhóm sử dụng các mô hình Machine Learning trong Spark MLlib bao gồm: Word2Vec, SVM, RandomForest, LogisticRegression, GradientBoosted, DecisionTrees và các mô hình Deep Learning bao gồm: BERT, ROBERTA, DistilBERT, XLNet, Electra.
 * Thành phần trực tuyến (Online): Là một pipeline phát hiện cảm xúc căng thẳng ở các bài đăng trên Reddit trong thời gian thực. Ba công việc chính trong phần này là thu thập dữ liệu trực tuyến trên mạng xã hội Reddit, truyền và xử lý dữ liệu theo thời gian thực, và phát hiện cảm xúc căng thẳng của dữ liệu này theo thời gian thực.
-![Hệ thống](https://github.com/namtuthien/IE212.O11.Group11/assets/96688782/e525875d-9603-4ab9-b42f-8c3f6102e606)
+![Hệ thống (final)](https://github.com/namtuthien/IE212.O11.Group11/assets/96688782/b30b8431-781d-4f8e-b74d-38413b5ea787)
 
 ## Công nghệ và môi trường sử dụng
 * Ubuntu 22.04.3 LTS.
