@@ -1,7 +1,6 @@
 # [IE212.O11.Group11] - Real-time Stress Detection on Reddit Posts, using Kafka and Spark streaming
 
-* Trường Đại học Công nghệ Thông tin, Đại học Quốc gia Thành phố Hồ Chí Minh (ĐHQG-HCM).
-* Khoa: Khoa học và kỹ thuật thông tin (KTTT).
+* Khoa Khoa học và Kỹ thuật thông tin, Trường Đại học Công nghệ Thông tin, Đại học Quốc gia Thành phố Hồ Chí Minh.
 * GVHD: TS. Đỗ Trọng Hợp.
 * Nhóm sinh viên thực hiện: Nhóm 11.
 
@@ -13,7 +12,7 @@
 |3. 	| Lê Đức Mạnh		| 21521116 | Thành viên |
 
 ##  Giới thiệu
-Với sự phát triển nhanh chóng của công nghệ thông tin, các trang mạng xã hội đã trở thành một phần không thể thiếu trong cuộc sống của nhiều người hiện nay. Theo báo cáo thống kê của Statista, tính đến tháng 10 năm 2023, có hơn 60% dân số thế giới sử dụng mạng xã hội [1]. Số lượng người sử dụng lớn kéo theo đó là số lượng bài viết khổng lồ được chia sẻ mỗi ngày, cùng với nhịp sống hiện đại có nhiều áp lực từ công việc, học tập, gia đình, xã hội… khiến tình trạng căng thẳng trở nên phổ biến và dễ dàng được quan sát hơn bao giờ hết.
+Với sự phát triển nhanh chóng của công nghệ thông tin, các trang mạng xã hội đã trở thành một phần không thể thiếu trong cuộc sống của nhiều người hiện nay. Theo báo cáo thống kê của Statista, tính đến tháng 10 năm 2023, có hơn 60% dân số thế giới sử dụng mạng xã hội. Số lượng người sử dụng lớn kéo theo đó là số lượng bài viết khổng lồ được chia sẻ mỗi ngày, cùng với nhịp sống hiện đại có nhiều áp lực từ công việc, học tập, gia đình, xã hội… khiến tình trạng căng thẳng trở nên phổ biến và dễ dàng được quan sát hơn bao giờ hết.
 
 Trong phạm vi đồ án môn học, nhóm tập trung vào việc xây dựng hệ thống có thể tiếp nhận các thông tin là các bài đăng trên trang mạng xã hội Reddit và phát hiện được tình trạng căng thẳng của bài viết một cách tự động. Từ đó làm nền tảng để các trang mạng xã hội đưa ra sự hỗ trợ kịp thời đến người dùng.
 
