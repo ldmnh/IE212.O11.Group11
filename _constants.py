@@ -45,11 +45,11 @@ SUBREDDITS = [
     'ptsd',
     'relationships'
 ]
-REDDIT_CLIENT_ID = 'hX1h3ot5OPjOtQKnCsjkjg'
-REDDIT_CLIENT_SECRET = '_SOXAIlqlrgLNmBWnB55zOXkuXQ_xA'
-REDDIT_USER_AGENT = 'Stress Detection Crawling by u/namtuthien'
-REDDIT_USER_NAME = 'namtuthien'
-REDDIT_PASSWORD = 'ducmanh123'
+REDDIT_CLIENT_ID = 'your_client_id'
+REDDIT_CLIENT_SECRET = 'your_secret_id'
+REDDIT_USER_AGENT = 'Stress Detection Crawling by u/your_user_name'
+REDDIT_USER_NAME = 'your_user_name'
+REDDIT_PASSWORD = 'your_password'
 
 CRAWL_LIMIT = 200
 CRAWL_TRIGGER_LIMIT = 1
